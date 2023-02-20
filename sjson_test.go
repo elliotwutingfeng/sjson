@@ -97,6 +97,10 @@ func TestBasic(t *testing.T) {
 		``,
 		"\\:1.this.4", `4`)
 	testRaw(t, setRaw,
+		``,
+		``,
+		"\\:1#.this.4", `4`)
+	testRaw(t, setRaw,
 		`{":\\1":{"this":[null,null,null,null,{".HI":4}]}}`,
 		``,
 		"\\:\\\\1.this.4.\\.HI", `4`)
