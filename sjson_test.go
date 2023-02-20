@@ -133,6 +133,7 @@ func TestDelete(t *testing.T) {
 	testRaw(t, setDelete, `{"a":[123,456]}`, `{"a":[123,456,789]}`, `a.-1`, nil)
 	testRaw(t, setDelete, `{"and":"another"}`, `{"this":"that","and":"another"}`, `this`, nil)
 	testRaw(t, setDelete, `{"this":"that"}`, `{"this":"that","and":"another"}`, `and`, nil)
+	testRaw(t, setDelete, `{}`, `{"this":"that",\"and":"another"}`, `and`, nil)
 	testRaw(t, setDelete, `{}`, `{"and":"another"}`, `and`, nil)
 	testRaw(t, setDelete, `{"1":"2"}`, `{"1":"2"}`, `3`, nil)
 }
