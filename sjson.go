@@ -405,9 +405,6 @@ func isOptimisticPath(path string) bool {
 		if path[i] > '9' && path[i] < 'A' {
 			return false
 		}
-		if path[i] > 'z' {
-			return false
-		}
 	}
 	return true
 }
