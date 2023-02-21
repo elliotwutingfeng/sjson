@@ -366,3 +366,10 @@ func TestIssue61(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestEmptyPath(t *testing.T) {
+	_, err := Set("", "", "")
+	if err == nil || err.Error() != "path cannot be empty" {
+		t.Fatal("expected error")
+	}
+}
