@@ -322,13 +322,23 @@ var example = `
   `
 
 func TestIndex(t *testing.T) {
-	path := `friends.#(last="Murphy").last`
-	json, err := Set(example, path, "Johnson")
-	if err != nil {
-		t.Fatal(err)
+	type testCase struct {
+		path   string
+		result string
 	}
-	if gjson.Get(json, "friends.#.last").String() != `["Johnson","Craig","Murphy"]` {
-		t.Fatal("mismatch")
+	testCases := []testCase{
+		{`friends.#(last="Murphy").last`, `["Johnson","Craig","Murphy"]`},
+		{`friends.:#(last="Murphy").last`, `["Murphy","Craig","Murphy"]`},
+		{`B`, `["Murphy","Craig","Murphy"]`},
+	}
+	for _, tc := range testCases {
+		json, err := SetOptions(example, tc.path, "Johnson", &Options{Optimistic: true, ReplaceInPlace: true})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if gjson.Get(json, "friends.#.last").String() != tc.result {
+			t.Fatal("mismatch")
+		}
 	}
 }
 
